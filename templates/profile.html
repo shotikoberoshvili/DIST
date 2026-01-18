@@ -1,0 +1,20 @@
+{% extends "base.html"%}
+{% block title %} პროფილი {% endblock %}
+
+{% block container %}
+<div class="container-md bg-white mt-2 border rounded shadow-md">
+    <div class="row mt-2">
+        <div class="col-6 offset-3 my-2">
+            <div class="row mt-2">
+                Name: {{ user['name'] }}
+            </div>
+            <div class="row mt-2">
+                Surname: {{user['surname'] }}
+            </div>
+            <div class="row mt-2">
+                <img src="/static/images/{{user['image'] }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

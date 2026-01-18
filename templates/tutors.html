@@ -1,0 +1,56 @@
+{% extends "base.html"%}
+{% block title %} მენტორები {% endblock %}
+{% block container %}
+
+
+
+<div class="container-md">
+    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4" style="align-items: center;">
+       
+        {% for mentors in mentors %}
+        <div class="col">
+            <div class="card" style="width: auto;">
+                <img src="/static/images/{{ mentors['image'] }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{ mentors['name'] }}</strong> </h5>
+                    <p class="card-text"><i> შევასწავლი: {{ mentors['subject'] }}</i></p>
+                    {% if mentors.price %}
+                    <p class="card-text mb-1"><strong>ფასი:</strong> {{ mentors.price }} ₾ / სთ</p>
+                    {% endif %}
+                    {% set rating = mentor_ratings.get(mentors.id) %}
+                    {% if rating and rating.avg %}
+                    <p class="card-text small text-muted">
+                        ⭐ {{ rating.avg }} / 5 ({{ rating.count }} შეფასება)
+                    </p>
+                    {% endif %}
+                    
+                    <a href="/detailed/{{ mentors['id'] }}" class="btn btn-outline-success">ვრცლად</a>
+                    {% if current_user.role == "Admin" %}
+                        <a href="/delete/{{ mentors['id'] }}" class="btn btn-outline-danger">წაშლა</a>
+                         <a href="/edit_mentor/{{ mentors.id }}" class="btn btn-outline-info">რედაქტირება</a>
+                    {% elif role == "Moderator" %}
+                        <a href="#" class="btn btn-outline-info">ცვლილება</a>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="qveda-nav" style="align-self: center;">
+    <nav aria-label="..." >
+  <ul class="pagination">
+    <li class="page-item"><a href="#" class="page-link">Previous</a></li>
+    <li class="page-item active">
+      <a class="page-link" href="tutors.html" aria-current="page">1</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+</div>
+</div>
+
+
+{% endblock %}

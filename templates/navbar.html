@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-expand-lg bg-alta shadow-lg">
+        <div class="container-md">
+            <a class="navbar-brand" style="color: white;" href="/"><img src="../static/images/logo.png" width="70px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " style="color: white;" aria-current="page" href="/"><i><b> მთავარი</b></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="/about"><i><b>ჩვენს შესახებ</b></i></a>
+                    </li>
+                    {% if current_user.role == 'Admin'%}
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="/add_mentor"><i><b>დაამატე მენტორი</b></i></a>
+                    </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: white;"  href="/tutors"><i><b>მენტორები</b></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: white;"  href="/calendar"><i><b>კალენდარი</b></i></a>
+                    </li>
+                    {%endif%}
+                </ul>
+                <div class="d-flex align-items-center">
+                    {% if current_user.is_authenticated %}
+                    <div class="dropdown">
+                        <a class="d-flex align-items-center text-decoration-none text-white dropdown-toggle user-dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/static/images/{{ current_user.profile_img }}" alt="{{ current_user.name }}" class="rounded-circle me-2 user-avatar" style="width: 40px; height: 40px; object-fit: cover;">
+                            <span class="d-none d-sm-inline">{{ current_user.name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/account">პროფილი</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">გამოსვლა</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="btn-group">
+                        <a class="btn btn-outline-light" href="/login">შესვლა</a>
+                        <a class="btn btn-outline-light" href="/register">რეგისტრაცია</a>
+                    </div>
+                    {% endif %}
+                </div>  
+
+            </div>
+        </div>
+    </nav>

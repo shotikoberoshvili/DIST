@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} დაამატე ან შეცვალე მენტორი {% endblock %}
+
+{% block container %}
+<div class="row mt-2">
+    <form class="col-6 offset-3 my-2" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {% for errors in form.errors.values() %}
+        <div class="alert alert-danger">
+            {% for error in errors %}
+            * {{ error }}<br>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <div class="row mt-2">
+            {{ form.image.label }}
+            {{ form.image(class="form-control", accept=".jpg, .png, .jpeg") }}
+        </div>
+        <div class="row mt-2">
+            {{ form.name(class="form-control", placeholder=form.name.label.text ) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.subject(class="form-control", placeholder=form.subject.label.text) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.price(class="form-control", placeholder=form.price.label.text) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.text.label }}
+            {{ form.text(class="form-control", rows=5, placeholder=form.text.label.text) }}
+        </div>
+        <div class="row mt-2">
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
+
+    </form>
+</div>
+{% endblock %}
+
+
+

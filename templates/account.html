@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %} პროფილი {% endblock %}
+
+{% block container %}
+<div class="container-md py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h3 class="mb-3">პროფილის რედაქტირება</h3>
+
+                    {% for errors in form.errors.values() %}
+                    <div class="alert alert-danger">
+                        {% for error in errors %}
+                        * {{ error }}<br>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.phone_number.label(class="form-label") }}
+                            {{ form.phone_number(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.university.label(class="form-label") }}
+                            {{ form.university(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.faculty.label(class="form-label") }}
+                            {{ form.faculty(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.text.label(class="form-label") }}
+                            {{ form.text(class="form-control", rows=3) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.profile_img.label(class="form-label") }}
+                            {{ form.profile_img(class="form-control", accept=".jpg, .png, .jpeg") }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success">{{ form.submit.label.text }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

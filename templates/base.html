@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/images/logo.png">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<header>
+   {% include 'navbar.html' %}
+</header>
+<div class="container-md bg-white mt-4 border rounded shadow-lg">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class ="alert alert-{{category}}">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    {% block container %}
+
+    {% endblock %}
+
+    <!-- Floating chatbot -->
+    <div id="chatbot-container">
+        <button id="chatbot-toggle" class="chatbot-button" type="button" aria-label="Chat with DIST bot">
+            💬
+        </button>
+
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-header">
+                <span class="chatbot-title">DIST AI დახმარება</span>
+                <button type="button" class="chatbot-close" aria-label="Close chat">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-message chat-message-bot">
+                    <div class="chat-message-text">
+                        გამარჯობა! დამიწერე კითხვა DIST პლატფორმაზე ან სწავლასთან დაკავშირებით.
+                    </div>
+                </div>
+            </div>
+            <form class="chatbot-input-area" id="chatbot-form">
+                <input type="text" id="chatbot-input" class="form-control" placeholder="კითხვა..." autocomplete="off">
+                <button type="submit" class="btn btn-success chatbot-send">გაგზავნა</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                          <a href="https://tbcbank.ge/ka/tbc-education" data-i18n="TBC"><img src="../static/images/tbc-logo.png" href="https://tbcbank.ge/ka/tbc-education" width="200px" alt="DroPay Logo" class="logo-image"></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3 data-i18n="links">ბმულები</h3>
+                    <ul>
+                        <li><a href="/" data-i18n="home">მთავარი</a></li>
+                        <li><a href="/register" data-i18n="request">რეგისტრაცია</a></li>
+                        <li><a href="/login" data-i18n="contact">შესვლა</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact" id="contact">
+                    <h3 data-i18n="contactTitle">კონტაქტი</h3>
+                    <ul>
+                        <li>ელ.ფოსტა: infodistt@gmail.com</li>
+                        <li>ტელ: +995 599 326 577</li>
+                        <li data-i18n="address">მისამართი: თბილისი, საქართველო</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DIST. <span data-i18n="copyright">ყველა უფლება დაცულია.</span></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=61575906249858" aria-label="Facebook"><i>f</i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.getElementById('chatbot-toggle');
+        const windowEl = document.getElementById('chatbot-window');
+        const closeBtn = document.querySelector('.chatbot-close');
+        const form = document.getElementById('chatbot-form');
+        const input = document.getElementById('chatbot-input');
+        const messages = document.getElementById('chatbot-messages');
+        let isSending = false;
+
+        if (!toggleBtn || !windowEl || !form) {
+            return;
+        }
+
+        toggleBtn.addEventListener('click', function () {
+            windowEl.classList.toggle('chatbot-open');
+        });
+
+        closeBtn.addEventListener('click', function () {
+            windowEl.classList.remove('chatbot-open');
+        });
+
+        function appendMessage(text, type) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'chat-message ' + (type === 'user' ? 'chat-message-user' : 'chat-message-bot');
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-message-text';
+            bubble.textContent = text;
+            wrapper.appendChild(bubble);
+            messages.appendChild(wrapper);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const text = (input.value || '').trim();
+            if (!text || isSending) return;
+
+            appendMessage(text, 'user');
+            input.value = '';
+            isSending = true;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({message: text})
+                });
+                const data = await response.json();
+                if (data.reply) {
+                    appendMessage(data.reply, 'bot');
+                } else {
+                    appendMessage('დაფიქსირდა შეცდომა. სცადე მოგვიანებით.', 'bot');
+                }
+            } catch (err) {
+                appendMessage('ქსელური შეცდომა. სცადე კიდევ ერთხელ.', 'bot');
+            } finally {
+                isSending = false;
+            }
+        });
+    });
+</script>
+</body>
+</html>

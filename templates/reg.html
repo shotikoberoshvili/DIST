@@ -1,0 +1,56 @@
+{% extends "base.html"%}
+{% block title %} რეგისტრაცია {% endblock %}
+{% block container %}
+<div class="container-md bg-white mt-2 border rounded shadow-md">
+    <h1 style="text-align:center;">რეგისტრაცია</h1>
+    <hr>
+    <div class="row mt-2">
+        <form class="col-8 offset-2 my-2", method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+
+            {% for errors in form.errors.values() %}
+            <div class="alert alert-danger">
+                {% for error in errors %}
+                    *{{ error }}<br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="row mt-2">
+                {{ form.name(class="form-control", placeholder=form.name.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.email(class="form-control", placeholder=form.email.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.phone_number(class="form-control", placeholder=form.phone_number.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.university(class="form-control", placeholder=form.university.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.faculty(class="form-control", placeholder=form.faculty.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.password(class="form-control", placeholder=form.password.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.repeat_password(class="form-control", placeholder=form.repeat_password.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.role(class="form-select") }}
+            </div>
+            <div class="row mt-2">
+                {{ form.profile_img.label }}
+                {{ form.profile_img(class="form-control", accept=".jpg, .png, .jpeg" ) }}
+            </div>
+            <br>
+            <div class="row mt-2">
+                {{ form.text(class="form-control", placeholder=form.text.label.text) }}
+            </div>
+            <div class="row mt-2">
+                {{ form.submit(class="btn btn-success") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
