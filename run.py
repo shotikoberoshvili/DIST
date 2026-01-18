@@ -1,4 +1,8 @@
-from ext import app
-from routes import *
+from ext import app, db
+import routes
 
-app.run(host="0.0.0.0")
+with app.app_context():
+    db.create_all()
+
+if __name__ == "__main__":
+    app.run()
