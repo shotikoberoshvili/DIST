@@ -1,8 +1,4 @@
-from ext import app, db
-import routes
+from ext import app
+from routes import delete, home, about, login, logout, register, calendar, account, profile, add_mentor, edit_mentor, tutors, detailed, rate_mentor
 
-with app.app_context():
-    db.create_all()
-
-if __name__ == "__main__":
-    app.run()
+app.run(host="0.0.0.0")
