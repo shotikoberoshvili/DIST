@@ -6,7 +6,6 @@ from models import Mentor, Comment, User, Rating
 from ext import app, db, client
 from flask_login import login_user, logout_user, login_required, current_user
 import os
-from flask_mail import Message, Mail
 
 
 
