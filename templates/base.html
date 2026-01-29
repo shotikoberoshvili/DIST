@@ -29,6 +29,40 @@
 
     {% endblock %}
 
+    <!-- ========================= -->
+<!-- DIST CHATBOT UI -->
+<!-- ========================= -->
+
+<button id="chatbot-toggle" class="chatbot-toggle-btn">
+    💬
+</button>
+
+<div id="chatbot-window" class="chatbot-window">
+
+    <div class="chatbot-header">
+        <span>DIST Chatbot 🤖</span>
+        <button class="chatbot-close">✖</button>
+    </div>
+
+    <div id="chatbot-messages" class="chatbot-messages">
+        <div class="chat-message chat-message-bot">
+            <div class="chat-message-text">
+                გამარჯობა! 😊 მე ვარ DIST-ის ჩათბოტი. როგორ დაგეხმარო?
+            </div>
+        </div>
+    </div>
+
+    <form id="chatbot-form" class="chatbot-form">
+        <input id="chatbot-input"
+               type="text"
+               placeholder="აკრიფე კითხვა..."
+               autocomplete="off">
+        <button type="submit">➤</button>
+    </form>
+
+</div>
+
+
     
     <!-- Footer -->
     <footer class="footer">
