@@ -29,38 +29,30 @@
 
     {% endblock %}
 
-    <!-- ========================= -->
-<!-- DIST CHATBOT UI -->
-<!-- ========================= -->
+  <button id="chatbot-toggle">💬</button>
 
-<button id="chatbot-toggle" class="chatbot-toggle-btn">
-    💬
-</button>
+<div id="chatbot-container" class="chatbot-container">
 
-<div id="chatbot-window" class="chatbot-window">
+  <div class="chatbot-header">
+    <h3>DIST Chatbot</h3>
+    <button id="close-chatbot" class="chatbot-close">✖</button>
+  </div>
 
-    <div class="chatbot-header">
-        <span>DIST Chatbot 🤖</span>
-        <button class="chatbot-close">✖</button>
-    </div>
+  <div id="chatbot-messages" class="chatbot-body"></div>
 
-    <div id="chatbot-messages" class="chatbot-messages">
-        <div class="chat-message chat-message-bot">
-            <div class="chat-message-text">
-                გამარჯობა! 😊 მე ვარ DIST-ის ჩათბოტი. როგორ დაგეხმარო?
-            </div>
-        </div>
-    </div>
+  <div class="chatbot-input">
+    <input id="chatbot-input-field" type="text" placeholder="აკრიფე კითხვა..." />
+    <button id="send-message-btn">➤</button>
+  </div>
 
-    <form id="chatbot-form" class="chatbot-form">
-        <input id="chatbot-input"
-               type="text"
-               placeholder="აკრიფე კითხვა..."
-               autocomplete="off">
-        <button type="submit">➤</button>
-    </form>
+  <div id="typing-indicator" class="typing-indicator">
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+  </div>
 
 </div>
+
 
 
     
