@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         'ნახვამდის': 'ნახვამდის! კარგი დღე გისურვებ!'
     };
 
-    // Enhanced knowledge base with all DroPay information
+    // Enhanced knowledge base with all Dist information
     const knowledgeBase = {
         // Basic greetings and responses
         'გამარჯობა|hello|hi|სალამი': {
-            response: 'გამარჯობა! მე ვარ DroPay-ის ჩათბოტი. როგორ შემიძლია დაგეხმაროთ?',
+            response: 'გამარჯობა! მე ვარ Dist-ის ჩათბოტი. როგორ შემიძლია დაგეხმაროთ?',
             options: [
                 'რა არის DroPay?',
                 'როგორ მუშაობს?',
